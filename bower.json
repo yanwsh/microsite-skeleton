@@ -1,0 +1,17 @@
+{
+  "name": "microsite-skeleton",
+  "description": "mwd microsite project",
+  "authors": [
+    "Wensheng Yan"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "mwd",
+    "microsite"
+  ],
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.2"
+  }
+}
