@@ -6,6 +6,7 @@ var fs   = require('fs');
 var gutil = require("gulp-util");
 var connect = require('gulp-connect-php');
 var browserSync = require('browser-sync');
+//var prerender = require('angular2-gulp-prerender');
 var webpack = require('webpack');
 var webpackConfig = require("./webpack.config.js");
 var globalConfig = JSON.parse(fs.readFileSync('./.env'));
@@ -19,6 +20,8 @@ const ENV = process.env.NODE_ENV = process.env.ENV = globalConfig.env;
         });
     });
 });
+
+
 
 gulp.task('watch', ['webpack:build', 'browser-sync'], function () {
     gulp.watch(['./src/**/*.ts'], ['webpack:build']);
@@ -40,6 +43,13 @@ gulp.task('webpack:build', function(callback) {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor', 'polyfills']
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery",
+            Tether: "tether",
+            "window.Tether": "tether"
         })
     ];
     if(globalConfig.env === "production"){

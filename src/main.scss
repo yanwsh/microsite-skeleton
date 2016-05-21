@@ -1,3 +1,10 @@
-body{
-  background: #FF0000;
-}
+// Core variables and mixins
+@import "config";
+@import "mixins";
+
+// Reset and dependencies
+@import "../bower_components/bootstrap/scss/normalize";
+@import "../bower_components/bootstrap/scss/print";
+
+// Core CSS
+@import "../bower_components/bootstrap/scss/reboot";
