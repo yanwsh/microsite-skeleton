@@ -1,6 +1,11 @@
+/*!
+  microsite-skeleton project
+*/
 // Core variables and mixins
 @import "config";
 @import "mixins";
+@import "utilities";
+@import "fonts";
 
 // Reset and dependencies
 @import "../bower_components/bootstrap/scss/normalize";
@@ -8,3 +13,12 @@
 
 // Core CSS
 @import "../bower_components/bootstrap/scss/reboot";
+
+// Utility classes
+@import "../bower_components/bootstrap/scss/utilities";
+@import "../bower_components/bootstrap/scss/utilities-background";
+@import "../bower_components/bootstrap/scss/utilities-spacing";
+@import "../bower_components/bootstrap/scss/utilities-responsive";
+
+//modules
+@import "Core/index";

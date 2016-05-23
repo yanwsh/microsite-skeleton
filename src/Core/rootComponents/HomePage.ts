@@ -2,7 +2,7 @@
  * Created by yanwsh on 5/17/16.
  */
 import {Component} from '@angular/core';
-import {BaseLayout} from '../../layout/BaseLayout'
+import {BaseLayout} from '../layout/BaseLayout';
 @Component({
     selector: 'HomePage',
     template: `

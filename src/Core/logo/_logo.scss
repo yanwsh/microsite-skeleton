@@ -1,0 +1,13 @@
+$logo-width:         280px;
+$logo-height:        56px;
+
+.logo{
+  width: $logo-width;
+  height: $logo-height;
+
+  &--icon{
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+  }
+}

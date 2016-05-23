@@ -1,0 +1,72 @@
+@import "../../../bower_components/bootstrap/scss/navbar";
+@import "../../../bower_components/bootstrap/scss/nav";
+
+.navbar{
+  &.bg-black-shadow{
+    border-radius: 0;
+    box-shadow: 0 em(1px) em(30px) $black-light;
+  }
+
+  display: flex;
+  align-items: stretch;
+
+  .navbar-logo{
+    padding: em(20px) em(50px);
+  }
+
+  .navbar-nav {
+    flex-grow: 1;
+    display: flex;
+    .nav-item {
+      float: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: 'GnuolaneRg-Regular', sans-serif;
+      font-size: $font-size-h4;
+      font-weight: $dt-font-weight;
+      display: block;
+      height: 100%;
+    }
+  }
+
+  .navbar-right{
+
+  }
+}
+
+.navbar-green {
+  .navbar-brand {
+    color: $navbar-green-active-color;
+
+    @include hover-focus {
+      color: $navbar-green-active-color;
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: $navbar-green-color;
+      transition: color 0.3s linear;
+
+      @include hover-focus {
+        color: $navbar-green-hover-color;
+      }
+    }
+
+    .open > .nav-link,
+    .active > .nav-link,
+    .nav-link.open,
+    .nav-link.active {
+      @include plain-hover-focus {
+        color: $navbar-green-active-color;
+      }
+    }
+  }
+
+  .navbar-divider {
+    background-color: rgba(0,0,0,.075);
+  }
+}

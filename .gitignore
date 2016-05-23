@@ -21,3 +21,7 @@ _temp
 public/js
 storages/*
 vendor
+
+_local
+public/fonts/skeleton-icon.*
+public/css/
