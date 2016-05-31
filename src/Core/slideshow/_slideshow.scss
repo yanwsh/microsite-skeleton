@@ -1,0 +1,121 @@
+@import "../../../bower_components/bootstrap/scss/carousel";
+
+.slideshow--only{
+  &__caption-slider{
+    @include media-breakpoint-down(xs){
+      min-height: em(156px);
+    }
+
+    @include media-breakpoint-down(md){
+      min-height: em(192px);
+    }
+  }
+
+  .carousel-inner{
+    > .carousel-item {
+      > img,
+      > a > img {
+        width: 100%;
+      }
+    }
+
+    .carousel-caption{
+      position: relative;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      padding: 0;
+      text-shadow: none;
+
+      h1{
+        font-family: $font-family-gnuolaneRg;
+        font-size: $font-size-h1;
+        text-transform: uppercase;
+        color: #00390e;
+
+        @include media-breakpoint-down(xs){
+          font-size: $font-size-h3;
+        }
+      }
+
+      p{
+        font-family: $font-family-AkzidenzGroteskBEBd;
+        color: #9e9e9e;
+      }
+    }
+  }
+
+  .carousel-control{
+    font-size: 1em;
+    &.left {
+      bottom: $indicator-height;
+      background: none;
+    }
+    &.right {
+      bottom: $indicator-height;
+      background: none;
+    }
+
+    .icon-left,
+    .icon-right {
+      position: absolute;
+      top: 50%;
+      z-index: 5;
+      display: inline-block;
+      font-size: em(32px);
+      width: em(32px, 32px);
+      height: em(32px, 32px);
+      margin-top: em(-16px, 32px);
+      font-family: serif;
+      line-height: 1;
+    }
+
+    .icon-left{
+      left: 0;
+      margin-left: em(20px, 32px);
+    }
+
+    &.left .icon-bg{
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 5em;
+      height: 3.6em;
+      margin-top: -1.8em;
+      transform: rotate(180deg);
+    }
+
+    &.right .icon-bg{
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 5em;
+      height: 3.6em;
+      margin-top: -1.8em;
+    }
+
+    .icon-right{
+      right: 0;
+      margin-right: em(20px, 32px);
+    }
+  }
+
+  .carousel-indicators{
+    position: relative;
+    height: $indicator-height;
+    bottom: 0;
+    margin-bottom: 0;
+
+    li {
+      margin: ($indicator-height / 2) 0.5em;
+      width: em(12px);
+      height: em(12px);
+      background: #e1e1e1;
+    }
+
+    .active{
+      background: #00390e;
+    }
+  }
+}

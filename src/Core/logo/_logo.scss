@@ -1,11 +1,16 @@
-$logo-width:         280px;
-$logo-height:        56px;
-
 .logo{
-  width: $logo-width;
-  height: $logo-height;
+  position: relative;
+  width: 100%;
+  max-width: $logo-width;
+
+  &--wrapper{
+    padding-top: percentage( $logo-height / $logo-width);
+  }
 
   &--icon{
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-size: contain;

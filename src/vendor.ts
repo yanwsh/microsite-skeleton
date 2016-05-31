@@ -12,11 +12,11 @@ import '@angular/router-deprecated';
 // RxJS
 import 'rxjs';
 
-//jquery
-require("jquery");
-
-//tether
-require("tether");
-
-//bootstrap
-require("../bower_components/bootstrap/dist/js/bootstrap");
+////jquery
+//require("jquery");
+//
+////tether
+//require("tether");
+//
+////bootstrap
+//require("../bower_components/bootstrap/dist/js/bootstrap");

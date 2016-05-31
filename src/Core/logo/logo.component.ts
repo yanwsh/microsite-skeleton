@@ -7,7 +7,9 @@ import {Component, Input} from '@angular/core';
     selector: 'logo',
     template: `
         <div class="logo">
-            <img [src]="url" [alt]="alt" />
+            <div class="logo--wrapper">
+                 <img [src]="url" [alt]="alt" />
+            </div>
         </div>
     `
 })

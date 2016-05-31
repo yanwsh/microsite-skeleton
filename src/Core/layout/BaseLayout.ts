@@ -1,31 +1,38 @@
 /**
  * Created by yanwsh on 5/18/16.
  */
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {NavbarWithLogoComponent} from '../navbar/navbar-with-logo.component';
 import {NavbarSettings} from '../navbar/NavbarSettings';
 import {SocialSettings} from '../socialicon/SocialSettings';
 import {SocialIconListComponent} from '../socialicon/social-icon-list.component';
+import {SearchBoxComponent} from "../searchBox/searchbox.component";
+import {NavbarSearchBoxComponent} from "../searchBox/navbar-searchbox.component";
+import * as $ from 'jquery';
 
 @Component({
     selector: 'BaseLayout',
     template: `
         <navbar-with-logo [settings]="navSetting" logo-icon-class="skeleton-icon skeleton-icon-greenlabel-logo">
+            <navbar-left>
+                <div class="hidden-sm-up"><search-box></search-box></div>
+            </navbar-left>
             <navbar-right>
                 <social-icon-list [settings]="socialSetting"></social-icon-list>
             </navbar-right>
         </navbar-with-logo>
-        <div class="container-fluid">
-
+        <navbar-search-box #searchbox></navbar-search-box>
+        <div class="container container-wrap">
             <ng-content select="[top]"></ng-content>
         </div>
         <ng-content select="[footer]"></ng-content>
     `,
-    directives: [NavbarWithLogoComponent, SocialIconListComponent]
+    directives: [NavbarWithLogoComponent, SocialIconListComponent, SearchBoxComponent, NavbarSearchBoxComponent]
 })
 export class BaseLayout {
     navSetting: NavbarSettings;
     socialSetting: SocialSettings;
+    @ViewChild('searchbox') searchbox: NavbarSearchBoxComponent;
     constructor(){
         this.navSetting = {
             nav: [
@@ -43,8 +50,8 @@ export class BaseLayout {
                     id: 0,
                     name: "search",
                     className: "skeleton-icon skeleton-icon-search",
-                    onClick: () => {
-                        console.log("search clicked");
+                    onClick: (event) => {
+                        this.searchbox.toggle();
                     }
                 },
                 {

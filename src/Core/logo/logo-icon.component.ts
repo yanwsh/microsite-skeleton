@@ -7,7 +7,9 @@ import {Component, Input, OnInit} from '@angular/core';
     selector: 'logo-icon',
     template: `
         <div class="logo">
-            <span [class]="iconClass"></span>
+            <div class="logo--wrapper">
+                 <span [class]="iconClass"></span>
+            </div>
         </div>
     `
 })

@@ -4,6 +4,7 @@
 var async = require('async');
 var gulp = require('gulp');
 var fs   = require('fs');
+var path = require('path');
 var gutil = require("gulp-util");
 var streamqueue = require('streamqueue');
 var connect = require('gulp-connect-php');
@@ -20,7 +21,8 @@ var svgmin = require('gulp-svgmin');
 var concat = require('gulp-concat');
 //var prerender = require('angular2-gulp-prerender');
 var webpack = require('webpack');
-var webpackConfig = require("./webpack.config.js");
+var webpackVendorConfig = require("./vendor.webpack.config.js");
+var webpackAppConfig = require("./app.webpack.config.js");
 var globalConfig = JSON.parse(fs.readFileSync('./.env'));
 var runTimestamp = Math.round(Date.now()/1000);
 const ENV = process.env.NODE_ENV = process.env.ENV = globalConfig.env;
@@ -34,9 +36,12 @@ gulp.task('browser-sync', function() {
     });
 });
 
-gulp.task('watch', ['Iconfont', 'webpack:build', 'css', 'browser-sync'], function () {
-    gulp.watch(['./src/**/*.ts'], ['webpack:build']);
-    gulp.watch('./src/**/*.scss', ['css']);
+gulp.task('watch', ['Iconfont', 'webpack:build:vendor', 'webpack:build:app', 'css', 'browser-sync'], function () {
+    //gulp.watch(['./src/**/*.ts'], ['webpack:build']);
+    gulp.start('webpack:build:app:watch');
+    gulp.watch('./src/**/*.scss', ['css']).on('change', function () {
+        browserSync.reload();
+    });
     gulp.watch('./assets/icons/**/*.svg', ['Iconfont']);
     gulp.watch(['./src/**/*.php', 'public/**/*.php']).on('change', function () {
         browserSync.reload();
@@ -45,28 +50,9 @@ gulp.task('watch', ['Iconfont', 'webpack:build', 'css', 'browser-sync'], functio
 
 gulp.task('default', ['browser-sync']);
 
-gulp.task('build', ['Iconfont', 'webpack:build', 'css']);
+gulp.task('build', ['Iconfont', 'webpack:build:vendor', 'webpack:build:app', 'css']);
 
-gulp.task('webpack:build', function(callback) {
-    // modify some webpack config options
-    var config = Object.create(webpackConfig);
-    config.plugins = [
-        new webpack.DefinePlugin({
-            "process.env": {
-                "ENV": JSON.stringify(ENV)
-            }
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
-        }),
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-            "window.jQuery": "jquery",
-            Tether: "tether",
-            "window.Tether": "tether"
-        })
-    ];
+function webpackBuilder(config, taskname, callback){
     if(globalConfig.env === "production"){
         config.output.filename = "[name].bundle.min.js";
         config.plugins.push(new webpack.optimize.DedupePlugin());
@@ -78,13 +64,65 @@ gulp.task('webpack:build', function(callback) {
 
     // run webpack
     webpack(config, function(err, stats) {
-        if(err) throw new gutil.PluginError("webpack:build", err);
-        gutil.log("[webpack:build]", stats.toString({
+        if(err) throw new gutil.PluginError(taskname, err);
+        gutil.log(taskname, stats.toString({
             colors: true
         }));
         browserSync.reload();
-        callback();
+        if(!config.watch){
+            callback();
+        }
     });
+}
+
+gulp.task('webpack:build:vendor', function(callback){
+    var config = Object.create(webpackVendorConfig);
+    config.plugins = [
+        new webpack.DllPlugin({
+            path: path.join(__dirname, "public/js", "[name]-manifest.json"),
+            name: "[name]"
+        })
+    ];
+
+    webpackBuilder(config, "webpack:build:vendor", callback);
+});
+
+function applicationWebpackBuild(isWatch, callback){
+    // modify some webpack config options
+    var config = Object.create(webpackAppConfig);
+    config.plugins = [
+        new webpack.DefinePlugin({
+            "process.env": {
+                "ENV": JSON.stringify(ENV)
+            }
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['app', 'polyfills']
+        }),
+        new webpack.DllReferencePlugin({
+            context: path.join(__dirname, "."),
+            manifest: require("./public/js/vendor-manifest.json")
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery",
+            Tether: "tether",
+            "window.Tether": "tether"
+        })
+    ];
+    if(isWatch){
+        config.watch = true;
+    }
+    webpackBuilder(config, "webpack:build:app", callback);
+}
+
+gulp.task('webpack:build:app', function(callback) {
+    applicationWebpackBuild(false, callback);
+});
+
+gulp.task('webpack:build:app:watch', function(callback) {
+    applicationWebpackBuild(true, callback);
 });
 
 gulp.task('css', function(){
@@ -99,7 +137,7 @@ gulp.task('css', function(){
             suffix: '.min'
         }))
        .pipe(gulp.dest('./public/css'))
-       .pipe(stream())
+       .pipe(stream());
 });
 
 gulp.task('Iconfont', function(done){
@@ -124,7 +162,7 @@ gulp.task('Iconfont', function(done){
                             fontPath: '/fonts/',
                             cssClass: 'skeleton-icon'
                         })),
-                    gulp.src('assets/icons/**/*.svg')
+                    gulp.src('./assets/icons/**/*.svg')
                         .pipe(svgmin())
                         .pipe(inlineSvg({
                             template: './assets/icons.template.mustache'

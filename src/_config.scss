@@ -32,6 +32,8 @@ $gray-light:                #818a91 !default;
 $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
 
+$white-lighter:             #eeeeee !default;
+
 $brand-primary:             #0275d8 !default;
 $brand-success:             #5cb85c !default;
 $brand-info:                #5bc0de !default;
@@ -41,6 +43,9 @@ $brand-danger:              #d9534f !default;
 $black:                     #000000 !default;
 $black-light:               lighten($black, 50%);
 $white:                     #FFFFFF !default;
+
+$green-dark:                #01390e !default;
+$green:                     #00FF00 !default;;
 // Options
 //
 // Quickly modify global styling by enabling or disabling optional features.
@@ -150,6 +155,8 @@ $grid-gutter-width:          1.875rem !default; // 30px
 $font-family-sans-serif:     "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $font-family-serif:          Georgia, "Times New Roman", Times, serif !default;
 $font-family-monospace:      Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-gnuolaneRg:     'GnuolaneRg-Regular', Arial, sans-serif !default;
+$font-family-AkzidenzGroteskBEBd: 'AkzidenzGroteskBE-Bold', Georgia, "Times New Roman", Times, serif !default;
 $font-family-base:           $font-family-sans-serif !default;
 
 // Pixel value used to responsively scale all typography. Applied to the `<html>` element.
@@ -387,6 +394,39 @@ $navbar-green-color:                #01390e !default;
 $navbar-green-hover-color:          #FF0000 !default;
 $navbar-green-active-color:         #FF0000 !default;
 $navbar-green-disabled-color:       lighten($navbar-green-color, 50%) !default;
+
+//navbar with logo
+$navbar-background:   #FFFFFF !default;
+$navbar-height:       6.25em !default;
+$navbar-width: (
+        xxs: (
+                navbar-logo: 60%,
+                navbar-menu:  100%,
+                navbar-right: 0
+        ),
+        xs: (
+                navbar-logo: 50%,
+                navbar-menu:  100%,
+                navbar-right: 0
+        ),
+        sm: (
+                navbar-logo: 35%,
+                navbar-menu:  65%,
+                navbar-right: 0
+        ),
+        md: (
+                navbar-logo: 25%,
+                navbar-menu:  40%,
+                navbar-right: 35%
+        ),
+        xl: (
+                navbar-logo: 25%,
+                navbar-menu:  45%,
+                navbar-right: 30%
+        )
+);
+$logo-width:         280px;
+$logo-height:        56px;
 // Navs
 
 $nav-link-padding:                          .5em 1em !default;
@@ -672,3 +712,7 @@ $pre-bg:                      #f7f7f9 !default;
 $pre-color:                   $gray-dark !default;
 $pre-border-color:            #ccc !default;
 $pre-scrollable-max-height:   340px !default;
+
+//slideshow.only
+$caption-height:              16.875em;
+$indicator-height:            3.75em;

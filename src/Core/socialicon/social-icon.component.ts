@@ -8,8 +8,8 @@ import {Social} from './SocialSettings';
     selector: 'social-icon',
     template: `
         <div class="social-icon">
-            <div [class]="settings.className" (click)="onClick()">
-                <div class="social-icon__sr">{{settings.name}}</div>
+            <div [class]="settings.className" (click)="onClick($event)">
+                <div class="sr-only">{{settings.name}}</div>
             </div>
         </div>
     `,
@@ -25,12 +25,12 @@ export class SocialIconComponent implements OnInit{
         this.target = this.settings.target || "_blank";
     }
 
-    onClick(){
+    onClick($event: any){
         if(this.settings.clickUrl){
             window.open(this.settings.clickUrl, this.target);
         }
         else if(this.settings.onClick){
-            this.settings.onClick();
+            this.settings.onClick($event);
         }
     }
 }

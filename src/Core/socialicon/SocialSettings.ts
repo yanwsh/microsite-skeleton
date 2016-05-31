@@ -7,7 +7,7 @@ export interface Social{
     className: string,
     clickUrl?: string,
     target?: string,
-    onClick?: () => any
+    onClick?: (event?: any) => any
 }
 
 export interface SocialSettings{

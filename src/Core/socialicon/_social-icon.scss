@@ -1,5 +1,5 @@
 .social-icon-list{
-  padding: 1.35em 3.125em;
+  //padding: 1.35em 3.125em;
   ul {
     padding-left: 0;
     margin-bottom: 0;
@@ -11,23 +11,43 @@
 
     + li{
       margin-left: 1rem;
+
+      @include media-breakpoint-down(lg){
+        margin-left: 0.8rem;
+      }
+
+      @include media-breakpoint-down(md){
+        margin-left: 0.5rem;
+      }
     }
   }
 }
 
 .social-icon{
   color: $navbar-green-color;
-  font-size: 2em;
+  font-size: $font-size-h6;
   width: 1.2em;
   text-align: center;
   cursor: pointer;
   transition: color 0.3s linear;
 
-  &:hover{
+  & .open{
     color: $gray-lighter;
   }
 
-  &__sr{
-    display: none;
+  @include media-breakpoint-up(md){
+    font-size: $font-size-h6;
+  }
+
+  @include media-breakpoint-up(lg){
+    font-size: $font-size-h4;
+  }
+
+  @include media-breakpoint-up(xl){
+    font-size: $font-size-h4;
+  }
+
+  &:hover{
+    color: $gray-lighter;
   }
 }
